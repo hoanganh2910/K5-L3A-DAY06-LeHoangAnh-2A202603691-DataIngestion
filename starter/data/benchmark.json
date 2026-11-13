@@ -1,0 +1,245 @@
+{
+  "dataset_id": "vn-local-government-organization",
+  "created_at": "2026-11-13",
+  "split_policy": "15 dev and 5 test questions. Keep the test split unchanged during strategy tuning.",
+  "questions": [
+    {
+      "id": "q01",
+      "split": "dev",
+      "type": "direct",
+      "question": "Theo Điều 1, đơn vị hành chính của Việt Nam được tổ chức thành mấy cấp?",
+      "expected_answer": "02 cấp.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 1,
+      "evidence_quote": "được tổ chức thành 02 cấp, gồm có:",
+      "filter": null
+    },
+    {
+      "id": "q02",
+      "split": "dev",
+      "type": "direct",
+      "question": "Hai cơ quan nào hợp thành cấp chính quyền địa phương?",
+      "expected_answer": "Hội đồng nhân dân và Ủy ban nhân dân.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 1,
+      "evidence_quote": "gồm có Hội đồng nhân dân và Ủy ban nhân dân.",
+      "filter": null
+    },
+    {
+      "id": "q03",
+      "split": "dev",
+      "type": "paraphrase",
+      "question": "Những yếu tố nào được dùng để phân loại đơn vị hành chính?",
+      "expected_answer": "Quy mô dân số, diện tích tự nhiên, điều kiện phát triển kinh tế - xã hội và các yếu tố đặc thù.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 2,
+      "evidence_quote": "quy mô dân số, diện tích tự nhiên, điều kiện phát triển kinh tế - xã hội",
+      "filter": null
+    },
+    {
+      "id": "q04",
+      "split": "dev",
+      "type": "direct",
+      "question": "Hội đồng nhân dân quyết định theo nguyên tắc nào?",
+      "expected_answer": "Hoạt động theo chế độ tập thể và quyết định theo đa số.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 2,
+      "evidence_quote": "Hội đồng nhân dân hoạt động theo chế độ tập thể, quyết định theo đa số.",
+      "filter": null
+    },
+    {
+      "id": "q05",
+      "split": "dev",
+      "type": "paraphrase",
+      "question": "Hội đồng nhân dân đại diện cho điều gì của người dân địa phương?",
+      "expected_answer": "Ý chí, nguyện vọng và quyền làm chủ của Nhân dân.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 3,
+      "evidence_quote": "là cơ quan quyền lực nhà nước ở địa phương, đại diện cho ý chí, nguyện vọng và quyền làm chủ của Nhân dân",
+      "filter": null
+    },
+    {
+      "id": "q06",
+      "split": "dev",
+      "type": "direct",
+      "question": "Ủy ban nhân dân có vai trò gì trong quan hệ với Hội đồng nhân dân cùng cấp?",
+      "expected_answer": "Là cơ quan chấp hành của Hội đồng nhân dân; đồng thời là cơ quan hành chính nhà nước ở địa phương.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 4,
+      "evidence_quote": "là cơ quan chấp hành của Hội đồng nhân dân, cơ quan hành chính nhà nước ở địa phương",
+      "filter": null
+    },
+    {
+      "id": "q07",
+      "split": "dev",
+      "type": "direct",
+      "question": "Chủ tịch Ủy ban Mặt trận Tổ quốc Việt Nam ở địa phương có thể được mời tham dự hoạt động nào của Hội đồng nhân dân?",
+      "expected_answer": "Các kỳ họp của Hội đồng nhân dân.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 4,
+      "evidence_quote": "được mời tham dự các kỳ họp Hội đồng nhân dân",
+      "filter": null
+    },
+    {
+      "id": "q08",
+      "split": "dev",
+      "type": "paraphrase",
+      "question": "Khi phân định thẩm quyền, cần xác định rõ trách nhiệm của chính quyền địa phương ra sao?",
+      "expected_answer": "Phải xác định rõ nội dung, phạm vi nhiệm vụ và quyền hạn mà địa phương được quyết định, tổ chức thực hiện và chịu trách nhiệm về kết quả.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 8,
+      "evidence_quote": "chính quyền địa phương được quyết định, tổ chức thực hiện và chịu trách nhiệm về kết quả",
+      "filter": null
+    },
+    {
+      "id": "q09",
+      "split": "dev",
+      "type": "metadata_filter",
+      "question": "Theo quy định về phân quyền, chính quyền địa phương được tự chủ trong việc gì?",
+      "expected_answer": "Ra quyết định và tổ chức thi hành nhiệm vụ, quyền hạn được phân quyền.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 9,
+      "evidence_quote": "Chính quyền địa phương tự chủ trong việc ra quyết định, tổ chức thi hành",
+      "filter": {
+        "chapter": "chapter_III"
+      }
+    },
+    {
+      "id": "q10",
+      "split": "dev",
+      "type": "direct",
+      "question": "Hội đồng nhân dân cấp tỉnh có thể phân cấp nhiệm vụ cho những cơ quan nào được nêu tại khoản 1 Điều 13?",
+      "expected_answer": "Ủy ban nhân dân cùng cấp hoặc Hội đồng nhân dân cấp xã.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 10,
+      "evidence_quote": "Hội đồng nhân dân cấp tỉnh phân cấp cho Ủy ban nhân dân cùng cấp hoặc Hội đồng nhân dân cấp xã",
+      "filter": null
+    },
+    {
+      "id": "q11",
+      "split": "dev",
+      "type": "conditional",
+      "question": "Khi ủy quyền nhiệm vụ theo Điều 14, thời hạn và điều kiện ủy quyền phải được quy định thế nào?",
+      "expected_answer": "Trong khoảng thời gian xác định, kèm theo các điều kiện cụ thể.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 12,
+      "evidence_quote": "trong khoảng thời gian xác định kèm theo các điều kiện cụ thể",
+      "filter": {
+        "chapter": "chapter_III"
+      }
+    },
+    {
+      "id": "q12",
+      "split": "dev",
+      "type": "direct",
+      "question": "Hội đồng nhân dân tỉnh có thể quyết định biện pháp gì để bảo đảm thi hành pháp luật tại địa phương?",
+      "expected_answer": "Biện pháp bảo đảm thi hành Hiến pháp, pháp luật và văn bản của cơ quan nhà nước cấp trên tại địa phương.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 14,
+      "evidence_quote": "Quyết định biện pháp bảo đảm thi hành Hiến pháp, pháp luật, các văn bản của cơ quan nhà nước cấp trên ở địa phương",
+      "filter": {
+        "chapter": "chapter_IV"
+      }
+    },
+    {
+      "id": "q13",
+      "split": "dev",
+      "type": "metadata_filter",
+      "question": "Một nhiệm vụ cơ bản của Ủy ban nhân dân tỉnh đối với Hiến pháp và pháp luật là gì?",
+      "expected_answer": "Tổ chức thi hành Hiến pháp và pháp luật.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 18,
+      "evidence_quote": "Tổ chức thi hành Hiến pháp, pháp luật",
+      "filter": {
+        "chapter": "chapter_IV"
+      }
+    },
+    {
+      "id": "q14",
+      "split": "dev",
+      "type": "direct",
+      "question": "Hội đồng nhân dân xã có thể quyết định chính sách, biện pháp nhằm mục tiêu nào?",
+      "expected_answer": "Phát triển kinh tế - xã hội và các ngành, lĩnh vực trên địa bàn theo quy định của pháp luật.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 24,
+      "evidence_quote": "Quyết định chính sách, biện pháp để phát triển kinh tế - xã hội",
+      "filter": null
+    },
+    {
+      "id": "q15",
+      "split": "dev",
+      "type": "direct",
+      "question": "Ủy ban nhân dân xã thực hiện chức năng quản lý hành chính nhà nước ở đâu?",
+      "expected_answer": "Trên địa bàn xã.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 27,
+      "evidence_quote": "Thực hiện quản lý hành chính nhà nước trên địa bàn",
+      "filter": null
+    },
+    {
+      "id": "q16",
+      "split": "test",
+      "type": "conditional",
+      "question": "Kỳ họp thứ nhất của Hội đồng nhân dân khóa mới phải được tổ chức chậm nhất bao lâu sau ngày bầu cử đại biểu?",
+      "expected_answer": "Chậm nhất 45 ngày kể từ ngày bầu cử đại biểu Hội đồng nhân dân.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 41,
+      "evidence_quote": "chậm nhất là 45 ngày kể từ ngày bầu cử đại biểu Hội đồng nhân dân",
+      "filter": {
+        "chapter": "chapter_V"
+      }
+    },
+    {
+      "id": "q17",
+      "split": "test",
+      "type": "metadata_filter",
+      "question": "Theo quy định về kỳ họp, Hội đồng nhân dân phải họp thường lệ tối thiểu bao nhiêu lần mỗi năm?",
+      "expected_answer": "Ít nhất 02 kỳ mỗi năm.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 41,
+      "evidence_quote": "Hội đồng nhân dân họp mỗi năm ít nhất 02 kỳ.",
+      "filter": {
+        "chapter": "chapter_V"
+      }
+    },
+    {
+      "id": "q18",
+      "split": "test",
+      "type": "conditional",
+      "question": "Nghị quyết về bãi nhiệm đại biểu Hội đồng nhân dân cần ít nhất bao nhiêu đại biểu tán thành?",
+      "expected_answer": "Ít nhất hai phần ba tổng số đại biểu Hội đồng nhân dân.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 42,
+      "evidence_quote": "được thông qua khi có ít nhất là hai phần ba tổng số đại biểu Hội đồng nhân dân biểu quyết tán thành.",
+      "filter": {
+        "chapter": "chapter_V"
+      }
+    },
+    {
+      "id": "q19",
+      "split": "test",
+      "type": "conditional",
+      "question": "Tối thiểu bao lâu một lần chính quyền cấp xã phải tổ chức đối thoại với Nhân dân?",
+      "expected_answer": "Ít nhất mỗi năm một lần; cũng có thể tổ chức khi có yêu cầu của ít nhất 10% tổng số cử tri cấp xã hoặc khi cần thiết.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 50,
+      "evidence_quote": "Ít nhất mỗi năm một lần",
+      "filter": {
+        "chapter": "chapter_VI"
+      }
+    },
+    {
+      "id": "q20",
+      "split": "test",
+      "type": "direct",
+      "question": "Theo Điều 51, sự kiện nào xác định ngày Luật này bắt đầu có hiệu lực?",
+      "expected_answer": "Ngày Luật được thông qua.",
+      "gold_source_id": "law-72-2025-qh15",
+      "gold_page": 55,
+      "evidence_quote": "Luật này có hiệu lực thi hành từ ngày được thông qua.",
+      "filter": {
+        "chapter": "chapter_VII"
+      }
+    }
+  ]
+}

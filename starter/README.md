@@ -10,7 +10,13 @@ starter/
 ├── init.sql               # bật extension khi tạo database mới
 ├── requirements.txt       # psycopg, pypdf và python-dotenv
 ├── .env.example           # cấu hình mẫu; copy thành .env
-├── scripts/check_setup.py # kiểm tra kết nối và extension (đã chạy được)
+├── scripts/
+│   ├── check_setup.py     # kiểm tra kết nối và extension
+│   └── validate_benchmark.py # kiểm tra manifest, split và evidence
+├── data/
+│   ├── manifest.json      # nguồn và metadata corpus
+│   ├── benchmark.json     # 20 câu hỏi dev/test có gold evidence
+│   └── ...pdf             # corpus đã chọn
 ├── src/
 │   ├── models.py          # cấu trúc dữ liệu mẫu
 │   ├── ingestion.py       # TODO: đọc / chuẩn hóa tài liệu
@@ -19,7 +25,6 @@ starter/
 │   ├── store.py           # TODO: lưu vector, metadata và filter
 │   ├── evaluation.py      # TODO: chấm truy xuất, lưu trace
 │   └── run.py             # TODO: kết nối các bước thành pipeline
-├── data/                  # bạn tự chuẩn bị corpus được phép sử dụng
 └── results/               # lưu kết quả của bạn
 ```
 
@@ -56,10 +61,11 @@ docker compose -p day6_student_starter stop
 
 ## 3. Hoàn thiện pipeline
 
-1. Đặt corpus vào `data/` hoặc cung cấp manifest/hướng dẫn truy cập. Đọc [GUIDE.md](../GUIDE.md) về **30 trang nội dung**, quyền dữ liệu và metadata.
+1. Corpus mẫu của bài hiện nằm trong `data/`; kiểm tra nguồn, quyền sử dụng và metadata trong `data/manifest.json`.
 2. Hoàn thiện từng hàm TODO trong `src/`. Lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
-3. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
-4. Tự viết ít nhất 20 câu hỏi kèm evidence, tách dev/test trước khi thử theo [BENCHMARK.md](../BENCHMARK.md). Lưu trace top-3 và báo cáo đủ năm tiêu chí.
-5. Sau khi hoàn thiện, chạy `python -m src.run` từ thư mục `starter/`. Trước khi làm TODO, lệnh này **chủ động báo `NotImplementedError`**.
+3. Kiểm tra benchmark bằng `python -m scripts.validate_benchmark` từ thư mục `starter/`. Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata.
+4. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
+5. Lưu trace top-3 và báo cáo đủ năm tiêu chí theo [BENCHMARK.md](../BENCHMARK.md).
+6. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Trước khi làm TODO, lệnh này **chủ động báo `NotImplementedError`**.
 
 Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.
