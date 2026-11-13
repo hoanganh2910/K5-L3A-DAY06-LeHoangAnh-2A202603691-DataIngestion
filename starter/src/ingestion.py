@@ -10,6 +10,10 @@ from .models import DocumentPage
 
 
 logger = logging.getLogger(__name__)
+_CHAPTER_HEADING = re.compile(
+    r"^Chương\s+(VII|VI|IV|V|III|II|I)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 
 def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
@@ -20,9 +24,13 @@ def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
     """
     reader = PdfReader(str(path))
     pages: list[DocumentPage] = []
+    current_chapter: str | None = None
 
     for page_number, pdf_page in enumerate(reader.pages, start=1):
         text = normalize_text(pdf_page.extract_text() or "")
+        chapter_heading = _CHAPTER_HEADING.search(text)
+        if chapter_heading:
+            current_chapter = f"chapter_{chapter_heading.group(1).upper()}"
         if not text:
             logger.warning(
                 "PDF page has no extractable text: document_id=%s source=%s page=%d",
@@ -36,6 +44,7 @@ def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
                 source=source,
                 page=page_number,
                 text=text,
+                metadata={"chapter": current_chapter} if current_chapter else {},
             )
         )
 

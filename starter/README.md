@@ -1,6 +1,6 @@
 # Starter · PostgreSQL + pgvector
 
-Bộ khởi động **tùy chọn** cho lab cá nhân. Docker Compose tạo PostgreSQL + pgvector local; các file trong `src/` là **khung pseudocode có TODO**, chưa đọc tài liệu, tạo embedding, lưu vector hay chạy benchmark. Bạn cần tự hiện thực. Vẫn có thể chọn Qdrant, Chroma hoặc vector store tương đương theo [GUIDE.md](../GUIDE.md).
+Bộ khởi động **tùy chọn** cho lab cá nhân. Docker Compose tạo PostgreSQL + pgvector local. Một số phần trong `src/` vẫn có TODO; ingestion và chunking đã được hiện thực, nhưng pipeline tổng thể chưa chạy được cho đến khi hoàn thiện embedding, store, evaluation và orchestration. Vẫn có thể chọn Qdrant, Chroma hoặc vector store tương đương theo [GUIDE.md](../GUIDE.md).
 
 ## Cấu trúc
 
@@ -19,8 +19,8 @@ starter/
 │   └── ...pdf             # corpus đã chọn
 ├── src/
 │   ├── models.py          # cấu trúc dữ liệu mẫu
-│   ├── ingestion.py       # TODO: đọc / chuẩn hóa tài liệu
-│   ├── chunking.py        # TODO: chia chunk
+│   ├── ingestion.py       # đọc PDF, chuẩn hóa và gắn metadata chương
+│   ├── chunking.py        # fixed-size và theo đoạn
 │   ├── embeddings.py      # TODO: chọn model API hoặc local
 │   ├── store.py           # TODO: lưu vector, metadata và filter
 │   ├── evaluation.py      # TODO: chấm truy xuất, lưu trace
@@ -62,10 +62,18 @@ docker compose -p day6_student_starter stop
 ## 3. Hoàn thiện pipeline
 
 1. Corpus mẫu của bài hiện nằm trong `data/`; kiểm tra nguồn, quyền sử dụng và metadata trong `data/manifest.json`.
-2. Hoàn thiện từng hàm TODO trong `src/`. Lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
-3. Kiểm tra benchmark bằng `python -m scripts.validate_benchmark` từ thư mục `starter/`. Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata.
-4. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
-5. Lưu trace top-3 và báo cáo đủ năm tiêu chí theo [BENCHMARK.md](../BENCHMARK.md).
-6. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Trước khi làm TODO, lệnh này **chủ động báo `NotImplementedError`**.
+2. `src/ingestion.py` đọc từng trang PDF, chuẩn hóa Unicode/whitespace, giữ số trang và nhận diện metadata chương. `src/chunking.py` cung cấp fixed-size theo ký tự (có overlap) và chunk theo đoạn (có tách đoạn quá dài); cả hai giữ document ID, nguồn, trang và metadata.
+3. Chạy kiểm tra CP3 và benchmark từ thư mục `starter/`:
+
+   ```powershell
+   python -m unittest discover -s tests
+   python .\scripts\validate_benchmark.py
+   ```
+
+   Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata.
+4. Hoàn thiện các hàm TODO còn lại trong `src/`, lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
+5. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
+6. Lưu trace top-3 và báo cáo đủ năm tiêu chí theo [BENCHMARK.md](../BENCHMARK.md).
+7. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Hiện tại lệnh này chưa chạy được vì các bước embedding, store, evaluation và orchestration còn TODO.
 
 Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.
