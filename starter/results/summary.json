@@ -1,7 +1,7 @@
 {
   "run": {
     "dataset_id": "vn-local-government-organization",
-    "created_at": "2026-11-13T12:40:12.565614+00:00",
+    "created_at": "2026-11-13T12:51:13.152822+00:00",
     "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
     "embedding_dimensions": 384,
     "vector_store": "PostgreSQL + pgvector",
@@ -115,36 +115,36 @@
       "chunk_count": 316,
       "total_chunk_characters": 144459,
       "average_chunk_characters": 457.1487341772152,
-      "chunking_seconds": 0.00045140000293031335,
-      "document_embedding_seconds": 8.672779900000023,
-      "store_upsert_seconds": 0.2390231999961543,
-      "query_embedding_seconds": 0.5453693000017665,
-      "vector_search_seconds": 0.6386681999938446,
+      "chunking_seconds": 0.000451300002168864,
+      "document_embedding_seconds": 8.06762009999511,
+      "store_upsert_seconds": 0.24672339999960968,
+      "query_embedding_seconds": 0.3555886999965878,
+      "vector_search_seconds": 0.5294797000096878,
       "estimated_api_cost_usd": 0.0
     },
     "B_paragraph_500": {
       "chunk_count": 358,
       "total_chunk_characters": 131338,
       "average_chunk_characters": 366.8659217877095,
-      "chunking_seconds": 0.00045140000293031335,
-      "document_embedding_seconds": 8.716609499999322,
-      "store_upsert_seconds": 0.2819783999948413,
-      "query_embedding_seconds": 0.5453693000017665,
-      "vector_search_seconds": 0.5781714999757241,
+      "chunking_seconds": 0.010453999995661434,
+      "document_embedding_seconds": 7.939486399998714,
+      "store_upsert_seconds": 0.25697829999990063,
+      "query_embedding_seconds": 0.3555886999965878,
+      "vector_search_seconds": 0.5037544999941019,
       "estimated_api_cost_usd": 0.0
     },
     "C_paragraph_500_filtered": {
       "chunk_count": 358,
       "total_chunk_characters": 131338,
       "average_chunk_characters": 366.8659217877095,
-      "chunking_seconds": 0.012282700001378544,
+      "chunking_seconds": 0.010453999995661434,
       "document_embedding_seconds": 0.0,
-      "store_upsert_seconds": 0.20707640000182437,
-      "query_embedding_seconds": 0.5453693000017665,
-      "vector_search_seconds": 0.5840915000080713,
+      "store_upsert_seconds": 0.19495869999809656,
+      "query_embedding_seconds": 0.3555886999965878,
+      "vector_search_seconds": 0.47277450000547105,
       "estimated_api_cost_usd": 0.0
     }
   },
-  "total_run_seconds": 30.28344250000373,
+  "total_run_seconds": 27.636417699999583,
   "cost_note": "API cost is 0 USD; embeddings run locally. Hardware/electricity excluded."
 }

@@ -100,7 +100,7 @@ def main() -> None:
             ),
             "chunking_seconds": (
                 fixed_chunking_seconds
-                if not is_paragraph_strategy
+                if strategy == "A_fixed_500_50"
                 else paragraph_chunking_seconds
             ),
             "document_embedding_seconds": embedding_seconds,
