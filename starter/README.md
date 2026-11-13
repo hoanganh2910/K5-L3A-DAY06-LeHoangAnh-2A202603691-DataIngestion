@@ -57,23 +57,24 @@ docker compose -p day6_student_starter stop
 
 ## 2. Chọn embedding model
 
-Điền key tương ứng trong `.env` nếu dùng OpenRouter, OpenAI hoặc Gemini; **không commit `.env`**. Model local không cần API key. `requirements.txt` chỉ có dependencies cơ bản: tự cài SDK hoặc thư viện local phù hợp với model bạn chọn và ghi lại version/lệnh cài trong báo cáo. Ghi tên model và số chiều; dùng cùng model cho toàn bộ chiến lược và vector query tương thích vector document.
+CP4 sử dụng model local `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` qua Sentence Transformers; model tự báo số chiều khi khởi tạo và cùng một model tạo vector cho document lẫn query. Lần chạy đầu cần mạng để tải model vào cache Hugging Face; sau đó không cần API key. Cài dependency bằng `python -m pip install -r requirements.txt`. Có thể đổi `EMBEDDING_MODEL` trong `.env` nếu truyền giá trị đó khi khởi tạo embedder; giữ nguyên model và ghi tên/phiên bản/số chiều trong báo cáo. Không gửi corpus tới DeepSeek: API DeepSeek được dành riêng cho tác vụ chat/generation nếu dự án có thêm bước trả lời.
 
 ## 3. Hoàn thiện pipeline
 
 1. Corpus mẫu của bài hiện nằm trong `data/`; kiểm tra nguồn, quyền sử dụng và metadata trong `data/manifest.json`.
 2. `src/ingestion.py` đọc từng trang PDF, chuẩn hóa Unicode/whitespace, giữ số trang và nhận diện metadata chương. `src/chunking.py` cung cấp fixed-size theo ký tự (có overlap) và chunk theo đoạn (có tách đoạn quá dài); cả hai giữ document ID, nguồn, trang và metadata.
-3. Chạy kiểm tra CP3 và benchmark từ thư mục `starter/`:
+3. `src/embeddings.py` tạo vector thật bằng model đa ngôn ngữ chạy local. Sau khi cài dependencies, kiểm tra CP3, adapter embedding và benchmark từ thư mục `starter/`:
 
    ```powershell
    python -m unittest discover -s tests
+   python .\scripts\check_embeddings.py
    python .\scripts\validate_benchmark.py
    ```
 
-   Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata.
+   Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata. Lần chạy embedding đầu tiên tải model và có thể mất vài phút.
 4. Hoàn thiện các hàm TODO còn lại trong `src/`, lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
 5. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
 6. Lưu trace top-3 và báo cáo đủ năm tiêu chí theo [BENCHMARK.md](../BENCHMARK.md).
-7. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Hiện tại lệnh này chưa chạy được vì các bước embedding, store, evaluation và orchestration còn TODO.
+7. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Hiện tại lệnh này chưa chạy được vì store, evaluation và orchestration còn TODO.
 
 Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.
