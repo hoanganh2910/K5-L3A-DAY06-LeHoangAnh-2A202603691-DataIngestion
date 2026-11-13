@@ -8,7 +8,7 @@ Bộ khởi động **tùy chọn** cho lab cá nhân. Docker Compose tạo Post
 starter/
 ├── docker-compose.yml     # PostgreSQL 16 + pgvector, chỉ mở cổng local
 ├── init.sql               # bật extension khi tạo database mới
-├── requirements.txt       # psycopg, pypdf và python-dotenv
+├── requirements.txt       # psycopg, pypdf, python-dotenv và Sentence Transformers
 ├── .env.example           # cấu hình mẫu; copy thành .env
 ├── scripts/
 │   ├── check_setup.py     # kiểm tra kết nối và extension
@@ -21,8 +21,8 @@ starter/
 │   ├── models.py          # cấu trúc dữ liệu mẫu
 │   ├── ingestion.py       # đọc PDF, chuẩn hóa và gắn metadata chương
 │   ├── chunking.py        # fixed-size và theo đoạn
-│   ├── embeddings.py      # TODO: chọn model API hoặc local
-│   ├── store.py           # TODO: lưu vector, metadata và filter
+│   ├── embeddings.py      # model embedding đa ngôn ngữ chạy local
+│   ├── store.py           # pgvector: upsert, tìm kiếm cosine và metadata filter
 │   ├── evaluation.py      # TODO: chấm truy xuất, lưu trace
 │   └── run.py             # TODO: kết nối các bước thành pipeline
 └── results/               # lưu kết quả của bạn
@@ -63,18 +63,19 @@ CP4 sử dụng model local `sentence-transformers/paraphrase-multilingual-MiniL
 
 1. Corpus mẫu của bài hiện nằm trong `data/`; kiểm tra nguồn, quyền sử dụng và metadata trong `data/manifest.json`.
 2. `src/ingestion.py` đọc từng trang PDF, chuẩn hóa Unicode/whitespace, giữ số trang và nhận diện metadata chương. `src/chunking.py` cung cấp fixed-size theo ký tự (có overlap) và chunk theo đoạn (có tách đoạn quá dài); cả hai giữ document ID, nguồn, trang và metadata.
-3. `src/embeddings.py` tạo vector thật bằng model đa ngôn ngữ chạy local. Sau khi cài dependencies, kiểm tra CP3, adapter embedding và benchmark từ thư mục `starter/`:
+3. `src/embeddings.py` tạo vector thật bằng model đa ngôn ngữ chạy local. `src/store.py` lưu chunk/vector bền vững trong PostgreSQL + pgvector, tìm kiếm theo cosine, lọc metadata bằng JSONB và thay thế chunk cũ khi nạp lại tài liệu. Sau khi Docker/PostgreSQL đang chạy và dependencies đã cài, kiểm tra CP3–CP5 và benchmark từ thư mục `starter/`:
 
    ```powershell
    python -m unittest discover -s tests
    python .\scripts\check_embeddings.py
+   python .\scripts\check_store.py
    python .\scripts\validate_benchmark.py
    ```
 
-   Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata. Lần chạy embedding đầu tiên tải model và có thể mất vài phút.
+   `check_store.py` dùng một strategy ngẫu nhiên và xóa riêng các hàng thử nghiệm đó khi hoàn tất; các strategy khác không bị ảnh hưởng. Benchmark hiện có 20 câu hỏi, 15 dev / 5 test, cùng gold evidence và filter metadata. Lần embedding đầu tiên có thể tải model vài phút.
 4. Hoàn thiện các hàm TODO còn lại trong `src/`, lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
 5. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
 6. Lưu trace top-3 và báo cáo đủ năm tiêu chí theo [BENCHMARK.md](../BENCHMARK.md).
-7. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Hiện tại lệnh này chưa chạy được vì store, evaluation và orchestration còn TODO.
+7. Sau khi hoàn thiện pipeline, chạy `python -m src.run` từ thư mục `starter/`. Hiện tại lệnh này chưa chạy được vì evaluation và orchestration còn TODO.
 
 Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.

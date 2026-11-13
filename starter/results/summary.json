@@ -1,0 +1,150 @@
+{
+  "run": {
+    "dataset_id": "vn-local-government-organization",
+    "created_at": "2026-11-13T12:40:12.565614+00:00",
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "embedding_dimensions": 384,
+    "vector_store": "PostgreSQL + pgvector",
+    "similarity": "cosine",
+    "search_mode": "exact",
+    "strategies": {
+      "A_fixed_500_50": {
+        "chunker": "fixed_size",
+        "size": 500,
+        "overlap": 50
+      },
+      "B_paragraph_500": {
+        "chunker": "by_paragraph",
+        "max_size": 500
+      },
+      "C_paragraph_500_filtered": {
+        "chunker": "by_paragraph",
+        "max_size": 500,
+        "filter": "question-provided metadata only"
+      }
+    }
+  },
+  "metrics": {
+    "A_fixed_500_50": {
+      "dev": {
+        "question_count": 15,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 15,
+          "rate": 0.2
+        },
+        "evidence_hit_at_3": {
+          "hits": 7,
+          "total": 15,
+          "rate": 0.4666666666666667
+        }
+      },
+      "test": {
+        "question_count": 5,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "evidence_hit_at_3": {
+          "hits": 4,
+          "total": 5,
+          "rate": 0.8
+        }
+      }
+    },
+    "B_paragraph_500": {
+      "dev": {
+        "question_count": 15,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 15,
+          "rate": 0.2
+        },
+        "evidence_hit_at_3": {
+          "hits": 3,
+          "total": 15,
+          "rate": 0.2
+        }
+      },
+      "test": {
+        "question_count": 5,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "evidence_hit_at_3": {
+          "hits": 3,
+          "total": 5,
+          "rate": 0.6
+        }
+      }
+    },
+    "C_paragraph_500_filtered": {
+      "dev": {
+        "question_count": 15,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 15,
+          "rate": 0.2
+        },
+        "evidence_hit_at_3": {
+          "hits": 3,
+          "total": 15,
+          "rate": 0.2
+        }
+      },
+      "test": {
+        "question_count": 5,
+        "hit_at_1": {
+          "hits": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "evidence_hit_at_3": {
+          "hits": 4,
+          "total": 5,
+          "rate": 0.8
+        }
+      }
+    }
+  },
+  "resources": {
+    "A_fixed_500_50": {
+      "chunk_count": 316,
+      "total_chunk_characters": 144459,
+      "average_chunk_characters": 457.1487341772152,
+      "chunking_seconds": 0.00045140000293031335,
+      "document_embedding_seconds": 8.672779900000023,
+      "store_upsert_seconds": 0.2390231999961543,
+      "query_embedding_seconds": 0.5453693000017665,
+      "vector_search_seconds": 0.6386681999938446,
+      "estimated_api_cost_usd": 0.0
+    },
+    "B_paragraph_500": {
+      "chunk_count": 358,
+      "total_chunk_characters": 131338,
+      "average_chunk_characters": 366.8659217877095,
+      "chunking_seconds": 0.00045140000293031335,
+      "document_embedding_seconds": 8.716609499999322,
+      "store_upsert_seconds": 0.2819783999948413,
+      "query_embedding_seconds": 0.5453693000017665,
+      "vector_search_seconds": 0.5781714999757241,
+      "estimated_api_cost_usd": 0.0
+    },
+    "C_paragraph_500_filtered": {
+      "chunk_count": 358,
+      "total_chunk_characters": 131338,
+      "average_chunk_characters": 366.8659217877095,
+      "chunking_seconds": 0.012282700001378544,
+      "document_embedding_seconds": 0.0,
+      "store_upsert_seconds": 0.20707640000182437,
+      "query_embedding_seconds": 0.5453693000017665,
+      "vector_search_seconds": 0.5840915000080713,
+      "estimated_api_cost_usd": 0.0
+    }
+  },
+  "total_run_seconds": 30.28344250000373,
+  "cost_note": "API cost is 0 USD; embeddings run locally. Hardware/electricity excluded."
+}
